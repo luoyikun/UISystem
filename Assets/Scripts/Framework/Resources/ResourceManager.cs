@@ -568,6 +568,7 @@ namespace SkierFramework
         private Dictionary<string, SpriteAtlas> _spriteCache = new Dictionary<string, SpriteAtlas>();
         public void LoadSpriteAsync(string atlasPath, string spriteName, Action<UnityEngine.Sprite> callback)
         {
+            SpriteAtlas atlas = null;
             if (string.IsNullOrEmpty(atlasPath) || string.IsNullOrEmpty(spriteName))
             {
                 Debug.LogErrorFormat("[LoadSpriteAsync] error：atlasPath = {0}, spriteName = {1}！", atlasPath, spriteName);
@@ -575,7 +576,7 @@ namespace SkierFramework
                 return;
             }
 
-            if (_spriteCache.TryGetValue(atlasPath, out SpriteAtlas atlas))
+            if (_spriteCache.TryGetValue(atlasPath, out atlas))
             {
                 callback?.Invoke(atlas.Get(spriteName));
             }
@@ -588,7 +589,8 @@ namespace SkierFramework
                         Debug.LogErrorFormat("[LoadSpriteAsync] load failed：atlasPath = {0}！", atlasPath);
                         return;
                     }
-                    if (_spriteCache.TryGetValue(atlasPath, out SpriteAtlas atlas))
+                    
+                    if (_spriteCache.TryGetValue(atlasPath, out  atlas))
                     {
                         callback?.Invoke(atlas.Get(spriteName));
                         return;

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using TMPro;
-using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.U2D;
@@ -53,7 +52,7 @@ namespace SkierFramework
         public static void CreateButton()
         {
             var image = Create<Image>("Button");
-            var button = image.AddComponent<Button>();
+            var button = image.gameObject.AddComponent<Button>();
             image.maskable = image.GetComponentInParent<RectMask2D>() != null || image.GetComponentInParent<Mask>() != null;
             image.rectTransform.sizeDelta = new Vector2(160, 30);
             image.gameObject.SetLayerRecursively(Layer.UI);
@@ -83,7 +82,7 @@ namespace SkierFramework
         public static void CreateButtonTextMeshPro()
         {
             var image = Create<Image>("Button");
-            var button = image.AddComponent<Button>();
+            var button = image.gameObject.AddComponent<Button>();
             var textMeshPro = Create<TextMeshProUGUI>("Text", button.transform);
             textMeshPro.raycastTarget = false;
             textMeshPro.maskable = textMeshPro.GetComponentInParent<RectMask2D>() != null || textMeshPro.GetComponentInParent<Mask>() != null;
@@ -115,8 +114,8 @@ namespace SkierFramework
             image.raycastTarget = true;
             image.maskable = false;
             image.rectTransform.sizeDelta = new Vector2(200, 200);
-            var scrollRect = image.AddComponent<ScrollRect>();
-            var uIScrollView = image.AddComponent<UIScrollView>();
+            var scrollRect = image.gameObject.AddComponent<ScrollRect>();
+            var uIScrollView = image.gameObject.AddComponent<UIScrollView>();
 
             var viewportImage = Create<Image>("Viewport", uIScrollView.transform);
             viewportImage.sprite = AssetDatabase.GetBuiltinExtraResource<Sprite>("UI/Skin/UIMask.psd");
@@ -125,7 +124,7 @@ namespace SkierFramework
             viewportImage.maskable = true;
 
             var viewport = viewportImage.transform as RectTransform;
-            viewport.AddComponent<RectMask2D>();
+            viewport.gameObject.AddComponent<RectMask2D>();
             viewport.anchorMin = Vector2.zero;
             viewport.anchorMax = Vector2.one;
             viewport.pivot = new Vector2(0, 1);
@@ -214,7 +213,7 @@ namespace SkierFramework
             var verticalScorllImage = Create<Image>(name, parent);
             verticalScorllImage.sprite = AssetDatabase.GetBuiltinExtraResource<Sprite>("UI/Skin/Background.psd");
             verticalScorllImage.type = Image.Type.Sliced;
-            var verticalScroll = verticalScorllImage.AddComponent<Scrollbar>();
+            var verticalScroll = verticalScorllImage.gameObject.AddComponent<Scrollbar>();
             var verticalRect = verticalScroll.transform as RectTransform;
             verticalRect.anchorMin = Vector2.zero;
             verticalRect.anchorMax = new Vector2(1, 0);
@@ -247,7 +246,7 @@ namespace SkierFramework
             var image = Create<Image>("Slider");
             image.color = Color.grey;
             image.rectTransform.sizeDelta = new Vector2(160, 20);
-            var slider = image.AddComponent<Slider>();
+            var slider = image.gameObject.AddComponent<Slider>();
             slider.interactable = false;
             slider.transition = Selectable.Transition.None;
 
